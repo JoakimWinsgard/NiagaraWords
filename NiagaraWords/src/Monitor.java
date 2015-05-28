@@ -12,12 +12,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTable;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 
 public class Monitor extends JFrame {
 
 	private JPanel contentPane;
-
+	private WordFiles wordFiles = new WordFiles();
+	//Words Words = new Words();
+	private JComboBox comboBox = new JComboBox();
+	public static JTable table;
 	/**
 	 * Launch the application.
 	 */
@@ -49,13 +55,15 @@ public class Monitor extends JFrame {
 		scrollPane.setBounds(12, 40, 189, 165);
 		contentPane.add(scrollPane);
 		
-		JTextPane textPane = new JTextPane();
-		scrollPane.setRowHeaderView(textPane);
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		comboBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				wordFiles.preview();
+			}
+		});
 		
-		final WordFiles wordFiles = new WordFiles();
-		//Words Words = new Words();
 
-		final JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"regular", "used", "Star Wars"}));
 		comboBox.setBounds(213, 85, 186, 22);
 		contentPane.add(comboBox);
@@ -63,7 +71,7 @@ public class Monitor extends JFrame {
 		JButton btnStart = new JButton("Start");
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				wordFiles.firebase(comboBox.getSelectedItem().toString());
+				wordFiles.firebase(comboBox.getSelectedItem().toString(),comboBox.getSelectedIndex());
 			}
 		});
 		btnStart.setBounds(302, 40, 97, 25);

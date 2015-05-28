@@ -26,20 +26,24 @@ import com.firebase.client.FirebaseError;
 public class WordFiles {
 	public static ArrayList<Word> words=new ArrayList <Word>();
 	public static String fileName[]={"regularWords","StarWarsTheme"};
-	//public ArrayList<String> list= new ArrayList<String>();
-	public Firebase myFirebaseRef ;
+	public static String fileStructure[]={""};
+	public Firebase myFirebaseRef,FireBaseRoot ;
 	public static String[][] word = new String[fileName.length][];
 	
 
 	 WordFiles (){
 		//Firebase myFirebaseRef, regularWordsRef, themedWordsRef;
-		myFirebaseRef = new Firebase("https://scorching-fire-1846.firebaseio.com/Joakim Words"); // Root
+			FireBaseRoot = new Firebase("https://scorching-fire-1846.firebaseio.com"); // Root
+
+		myFirebaseRef = new Firebase("https://scorching-fire-1846.firebaseio.com"); // Root
 		//regularWordsRef = new Firebase("https://scorching-fire-1846.firebaseio.com/regularWords");
 		//themedWordsRef = new Firebase("https://scorching-fire-1846.firebaseio.com/themedWords");
-		//myFirebaseRef.removeValue(); // Cleans out everything
+		myFirebaseRef.removeValue(); // Cleans out everything
 		//Firebase word = myFirebaseRef.child("Joakim Words");
 		
-		myFirebaseRef.child("Themed Wierd Size").setValue(1);
+		myFirebaseRef.child("ScreenNbr").setValue(145); // Has to be same as on the app. So place specific can't you see the screen you don't know the number
+		myFirebaseRef.child("ScreenWidth").setValue(1080); // Has to be same as on the app. So place specific can't you see the screen you don't know the number
+		myFirebaseRef.child("ScreenHeight").setValue(888); // Has to be same as on the app. So place specific can't you see the screen you don't know the number
 		for(int i=0; i<fileName.length;i++){
 			Scanner input[]={null,null};
 			try {
@@ -64,26 +68,27 @@ public void preview(){
 	 row.add("text");
 	 model.addRow(row);*/
 }
+
+
 	public void firebase(String s,int index){
-		
+		myFirebaseRef = new Firebase("https://scorching-fire-1846.firebaseio.com/Regular Words"); // Root
 		System.out.println(s + "  index:" + index);
 		
 		int count = 0;
 		for (int i = 0; i < word[0].length; i++) {
 			myFirebaseRef.child("word" + i + "/text").setValue(word[0][i]);
-			myFirebaseRef.child("word" + i + "/Active").setValue(false);
-			myFirebaseRef.child("word" + i + "/Owner").setValue("");
-			//int x=r.nextInt(Constants.screenWidth + 1); // skalad x pos
-			//int y=r.nextInt(Constants.screenHeight + 1); // skalad y pos
+			//myFirebaseRef.child("word" + i + "/active").setValue(false);
+			myFirebaseRef.child("word" + i + "/occupied").setValue(false);
+			//myFirebaseRef.child("word" + i + "/owner").setValue("");
 			words.add(new Word(word[0][i],"hej"));
 			count++;
 		}
 		
-		myFirebaseRef.child(fileName[0]+"  "+word[0].length+"Words Size").setValue(count);
+		FireBaseRoot.child("Regular Words Size").setValue(count);
 		System.out.println(fileName[0]+" is on firebase now!!");
 		
 		
-	switch(s){
+			switch(s){
 			
 			case "Star Wars":
 				
@@ -94,20 +99,34 @@ public void preview(){
 				for (int i = 0; i < word[1].length; i++) {
 			
 					myFirebaseRef.child("word" + i + "/text").setValue(word[1][i]);
-					myFirebaseRef.child("word" + i + "/Active").setValue(false);
-					myFirebaseRef.child("word" + i + "/Owner").setValue("");
-					//int x=r.nextInt(Constants.screenWidth + 1); // skalad x pos
-					//int y=r.nextInt(Constants.screenHeight + 1); // skalad y pos
+					myFirebaseRef.child("word" + i + "/active").setValue(false);
+					myFirebaseRef.child("word" + i + "/occupied").setValue(false);
+					myFirebaseRef.child("word" + i + "/owner").setValue("");
 					words.add(new Word(word[1][i],"hej"));
 					count++;
 				}
-				myFirebaseRef.child("second Size").setValue(count);
+				FireBaseRoot.child("Themed Words Size").setValue(count);
 				
 				
 			break;
 			
 			case "used":
-			
+				myFirebaseRef = new Firebase("https://scorching-fire-1846.firebaseio.com/Used Words"); // Root
+				count = 0;
+				for (int i = 0; i < word[0].length; i++) {
+					myFirebaseRef.child("word" + i + "/attributes/text").setValue(word[0][i]);
+					myFirebaseRef.child("word" + i + "/attributes/active").setValue(false);
+					myFirebaseRef.child("word" + i + "/attributes/occupied").setValue(false);
+					myFirebaseRef.child("word" + i + "/attributes/owner").setValue("");
+					myFirebaseRef.child("word" + i + "/attributes/xRel").setValue(0.5);
+					myFirebaseRef.child("word" + i + "/attributes/yRel").setValue(0.5);
+					words.add(new Word(word[0][i],"hej"));
+					count++;
+				}
+				
+				myFirebaseRef.child(fileName[0]+"  "+word[0].length+"Used Word Size").setValue(count);
+				System.out.println(fileName[0]+" is on Used firebase now!!");
+				
 			break;
 	
 	}

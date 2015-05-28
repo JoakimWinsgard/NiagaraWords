@@ -64,7 +64,7 @@ public class Monitor extends JFrame {
 		});
 		
 
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"regular", "used", "Star Wars"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"regular", "used", "Star Wars", "New"}));
 		comboBox.setBounds(213, 85, 186, 22);
 		contentPane.add(comboBox);
 		

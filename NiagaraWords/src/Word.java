@@ -2,6 +2,8 @@
 
 import java.awt.Color;
 
+import com.firebase.client.Firebase;
+
 
 //This is the class for the word object. It contains the words that
 //the user will have displayed in their mobile app. 
@@ -12,7 +14,7 @@ public class Word {
 	private String type="";
 	public boolean active = true, selected;
 	public String ownerId = "";
-
+    public Firebase firebase;
 	public enum State {onTray, draging, placed,locked};
 	State state=State.onTray;
 	public String text = "";

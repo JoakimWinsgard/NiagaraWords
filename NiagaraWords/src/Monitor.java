@@ -8,11 +8,16 @@ import javax.swing.JLabel;
 import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
+
+import com.firebase.client.Firebase;
+
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
@@ -52,7 +57,7 @@ public class Monitor extends JFrame {
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 40, 189, 165);
+		scrollPane.setBounds(12, 40, 189, 202);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -65,7 +70,7 @@ public class Monitor extends JFrame {
 		
 
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"regular", "used", "Star Wars"}));
-		comboBox.setBounds(213, 85, 186, 22);
+		comboBox.setBounds(213, 85, 207, 22);
 		contentPane.add(comboBox);
 		
 		JButton btnStart = new JButton("Start");
@@ -74,12 +79,23 @@ public class Monitor extends JFrame {
 				wordFiles.firebase(comboBox.getSelectedItem().toString(),comboBox.getSelectedIndex());
 			}
 		});
-		btnStart.setBounds(302, 40, 97, 25);
+		btnStart.setBounds(213, 36, 97, 25);
 		contentPane.add(btnStart);
 		
 		JButton btnExit = new JButton("Exit");
 		//btnExit.setBounds(302, 78, 97, 25);
 		contentPane.add(btnExit);
+		
+		JButton btnClear = new JButton("clear");
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Firebase FireBaseRoot = new Firebase("https://scorching-fire-1846.firebaseio.com"); // Root
+				FireBaseRoot.removeValue();
+				System.out.println("removed firebase");
+			}
+		});
+		btnClear.setBounds(322, 36, 97, 25);
+		contentPane.add(btnClear);
 		
 
 		

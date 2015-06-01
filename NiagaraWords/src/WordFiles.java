@@ -64,45 +64,85 @@ public class WordFiles {
 		FireBaseRoot.child("moves").setValue(5);
 		myFirebaseRef = new Firebase("https://scorching-fire-1846.firebaseio.com/Regular Words"); // Root
 		System.out.println(s + "  index:" + index);
-
 		int count = 0;
-		for (int i = 0; i < word[0].length; i++) {
-			myFirebaseRef.child("word" + i + "/text").setValue(word[0][i]);
-			//myFirebaseRef.child("word" + i + "/active").setValue(false);
-			myFirebaseRef.child("word" + i + "/occupied").setValue(false);
-			//myFirebaseRef.child("word" + i + "/owner").setValue("");
-			words.add(new Word(word[0][i],"hej"));
-			count++;
-		}
 
-		FireBaseRoot.child("Regular Words Size").setValue(count);
-		System.out.println(fileName[0]+" is on firebase now!!");		
+		
 
 		switch(s){
 
-		case "Star Wars":
-
+		case "regular":
 			count = 0;
+			for (int i = 0; i < word[0].length; i++) {
+				myFirebaseRef.child("word" + i + "/text").setValue(word[0][i]);
+				//myFirebaseRef.child("word" + i + "/active").setValue(false);
+				myFirebaseRef.child("word" + i + "/occupied").setValue(false);
+				//myFirebaseRef.child("word" + i + "/owner").setValue("");
+				//words.add(new Word(word[0][i],"hej"));
+				count++;
+			}
 
+			FireBaseRoot.child("Regular Words Size").setValue(count);
+			System.out.println(fileName[0]+" is on firebase now!!");		
+			
+			
+			
+		break;
+		case "Star Wars":
+		
+			count = 0;
+			for (int i = 0; i < word[0].length; i++) {
+				myFirebaseRef.child("word" + count + "/text").setValue(word[0][i]);
+				//myFirebaseRef.child("word" + count + "/active").setValue(false);
+				myFirebaseRef.child("word" + count + "/occupied").setValue(false);
+				//myFirebaseRef.child("word" + count + "/owner").setValue("");
+				//words.add(new Word(word[0][i],"hej"));
+				count++;
+			}
+			System.out.println(count);
+
+			FireBaseRoot.child("Regular Words Size").setValue(count);
+			System.out.println(fileName[0]+" is on firebase now!!");		
+			
+			
+			
+			//myFirebaseRef = new Firebase("https://scorching-fire-1846.firebaseio.com/Themed Words"); // Root
+	
+			
 			System.out.println("Star Wars theme is on firebase now!!");
 			System.out.println(word[2].length);
 			for (int i = 0; i < word[2].length; i++) {
-
-				myFirebaseRef.child("word" + i + "/text").setValue(word[1][i]);
-				myFirebaseRef.child("word" + i + "/active").setValue(false);
-				myFirebaseRef.child("word" + i + "/occupied").setValue(false);
-				myFirebaseRef.child("word" + i + "/owner").setValue("");
-				words.add(new Word(word[2][i],"hej"));
+				myFirebaseRef.child("word" + count + "/text").setValue(word[2][i]);
+				myFirebaseRef.child("word" + count + "/active").setValue(false);
+				myFirebaseRef.child("word" + count + "/occupied").setValue(false);
+				myFirebaseRef.child("word" + count + "/owner").setValue("");
+				//words.add(new Word(word[2][i],"hej"));
 				count++;
 			}
+			System.out.println(count);
 			FireBaseRoot.child("Themed Words Size").setValue(count);
-
-
+			
 			break;
 
 		case "used":
-			myFirebaseRef = new Firebase("https://scorching-fire-1846.firebaseio.com/Used Words"); // Root
 			count = 0;
+			for (int i = 0; i < word[0].length; i++) {
+				myFirebaseRef.child("word" + i + "/text").setValue(word[0][i]);
+				//myFirebaseRef.child("word" + i + "/active").setValue(false);
+				myFirebaseRef.child("word" + i + "/occupied").setValue(false);
+				//myFirebaseRef.child("word" + i + "/owner").setValue("");
+				words.add(new Word(word[0][i],"hej"));
+				count++;
+			}
+
+			FireBaseRoot.child("Regular Words Size").setValue(count);
+			System.out.println(fileName[0]+" is on firebase now!!");		
+			
+			
+			
+			
+			
+			//myFirebaseRef = new Firebase("https://scorching-fire-1846.firebaseio.com/Used Words"); // Root
+			
 			for (int i = 0; i < word[1].length; i++) {
 				myFirebaseRef.child("word" + i + "/attributes/text").setValue(word[0][i]);
 				myFirebaseRef.child("word" + i + "/attributes/active").setValue(false);
@@ -110,7 +150,7 @@ public class WordFiles {
 				myFirebaseRef.child("word" + i + "/attributes/owner").setValue("");
 				myFirebaseRef.child("word" + i + "/attributes/xRel").setValue(0.5);
 				myFirebaseRef.child("word" + i + "/attributes/yRel").setValue(0.5);
-				words.add(new Word(word[1][i],"hej"));
+				//words.add(new Word(word[1][i],"hej"));
 				count++;
 			}
 
@@ -120,8 +160,26 @@ public class WordFiles {
 			break;
 			
 		case "New":
-			myFirebaseRef = new Firebase("https://scorching-fire-1846.firebaseio.com/New"); // Root
 			count = 0;
+			
+			for (int i = 0; i < word[0].length; i++) {
+				myFirebaseRef.child("word" + i + "/text").setValue(word[0][i]);
+				//myFirebaseRef.child("word" + i + "/active").setValue(false);
+				myFirebaseRef.child("word" + i + "/occupied").setValue(false);
+				//myFirebaseRef.child("word" + i + "/owner").setValue("");
+				//words.add(new Word(word[0][i],"hej"));
+				count++;
+			}
+
+			FireBaseRoot.child("Regular Words Size").setValue(count);
+			System.out.println(fileName[0]+" is on firebase now!!");		
+			
+			
+			
+			
+			
+			//myFirebaseRef = new Firebase("https://scorching-fire-1846.firebaseio.com/New"); // Root
+			
 			for (int i = 0; i < word[0].length; i++) {
 				myFirebaseRef.child("word" + i + "/attributes/text").setValue(word[0][i]);
 				myFirebaseRef.child("word" + i + "/attributes/active").setValue(false);
@@ -129,7 +187,7 @@ public class WordFiles {
 				myFirebaseRef.child("word" + i + "/attributes/owner").setValue("");
 				myFirebaseRef.child("word" + i + "/attributes/xRel").setValue(0.5);
 				myFirebaseRef.child("word" + i + "/attributes/yRel").setValue(0.5);
-				words.add(new Word(word[0][i],"hej"));
+				//words.add(new Word(word[0][i],"hej"));
 				count++;
 			}
 
@@ -138,5 +196,11 @@ public class WordFiles {
 
 			break;
 		}
+		
+		
+		
+		
+		
+		
 	}	
 }

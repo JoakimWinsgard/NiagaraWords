@@ -25,6 +25,7 @@ public class WordFiles {
 		//Firebase word = myFirebaseRef.child("Joakim Words");
 		
 		FireBaseRoot.child("theme").setValue("fridge");
+		FireBaseRoot.child("moves").setValue(5);
 
 		myFirebaseRef.child("ScreenNbr").setValue(145); // Has to be same as on the app. So place specific can't you see the screen you don't know the number
 		myFirebaseRef.child("ScreenWidth").setValue(1080); // Has to be same as on the app. So place specific can't you see the screen you don't know the number

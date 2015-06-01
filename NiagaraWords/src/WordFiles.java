@@ -23,6 +23,8 @@ public class WordFiles {
 		//themedWordsRef = new Firebase("https://scorching-fire-1846.firebaseio.com/themedWords");
 		//myFirebaseRef.removeValue(); // Cleans out everything
 		//Firebase word = myFirebaseRef.child("Joakim Words");
+		
+		FireBaseRoot.child("theme").setValue("fridge");
 
 		myFirebaseRef.child("ScreenNbr").setValue(145); // Has to be same as on the app. So place specific can't you see the screen you don't know the number
 		myFirebaseRef.child("ScreenWidth").setValue(1080); // Has to be same as on the app. So place specific can't you see the screen you don't know the number

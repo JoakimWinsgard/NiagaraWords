@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 import javax.swing.table.DefaultTableModel;
@@ -8,23 +9,25 @@ import javax.swing.table.TableColumn;
 import com.firebase.client.Firebase;
 
 public class WordFiles {
+	public static int userMoves= 5;
+	public static String theme="fridge";
 	public static ArrayList<Word> words=new ArrayList <Word>();
 	public static String fileName[]={"wordListNew","regularWords","StarWarsTheme"};
 	public static String fileStructure[]={""};
 	public Firebase myFirebaseRef,FireBaseRoot ;
 	public static String[][] word = new String[fileName.length][];
 
+
 	WordFiles (){
 		//Firebase myFirebaseRef, regularWordsRef, themedWordsRef;
 		FireBaseRoot = new Firebase("https://scorching-fire-1846.firebaseio.com"); // Root
 
-		myFirebaseRef = new Firebase("https://scorching-fire-1846.firebaseio.com"); // Root
+		myFirebaseRef = new Firebase("https://scorching-fire-1846.firebaseio.com/Regular Words"); // Root
+
 		//regularWordsRef = new Firebase("https://scorching-fire-1846.firebaseio.com/regularWords");
 		//themedWordsRef = new Firebase("https://scorching-fire-1846.firebaseio.com/themedWords");
 		//myFirebaseRef.removeValue(); // Cleans out everything
 		//Firebase word = myFirebaseRef.child("Joakim Words");
-		
-		
 
 		myFirebaseRef.child("ScreenNbr").setValue(145); // Has to be same as on the app. So place specific can't you see the screen you don't know the number
 		myFirebaseRef.child("ScreenWidth").setValue(1080); // Has to be same as on the app. So place specific can't you see the screen you don't know the number
@@ -60,126 +63,70 @@ public class WordFiles {
 	}
 
 	public void firebase(String s,int index){
-		FireBaseRoot.child("theme").setValue("fridge");
-		FireBaseRoot.child("moves").setValue(5);
-		myFirebaseRef = new Firebase("https://scorching-fire-1846.firebaseio.com/Regular Words"); // Root
-		System.out.println(s + "  index:" + index);
-		int count = 0;
-
 		
+		FireBaseRoot.child("theme").setValue(theme);     // load theme
+		FireBaseRoot.child("moves").setValue(userMoves);	// load theme
+		System.out.println(s + "  index:" + index);
+		FireBaseRoot.child("Used Words").setValue("");     // load theme
+
+		int count = 0;
+		for (int i = 0; i < word[0].length; i++) {
+			myFirebaseRef.child("word" + i + "/text").setValue(word[0][i]);
+			//myFirebaseRef.child("word" + i + "/active").setValue(false);
+			myFirebaseRef.child("word" + i + "/occupied").setValue(false);
+			//myFirebaseRef.child("word" + i + "/owner").setValue("");
+			words.add(new Word(word[0][i],"hej"));
+			count++;
+		}
+
+		FireBaseRoot.child("Regular Words Size").setValue(count);
+		System.out.println(fileName[0]+" is on firebase now!!");		
 
 		switch(s){
 
-		case "regular":
-			count = 0;
-			for (int i = 0; i < word[0].length; i++) {
-				myFirebaseRef.child("word" + i + "/text").setValue(word[0][i]);
-				//myFirebaseRef.child("word" + i + "/active").setValue(false);
-				myFirebaseRef.child("word" + i + "/occupied").setValue(false);
-				//myFirebaseRef.child("word" + i + "/owner").setValue("");
-				//words.add(new Word(word[0][i],"hej"));
-				count++;
-			}
-
-			FireBaseRoot.child("Regular Words Size").setValue(count);
-			System.out.println(fileName[0]+" is on firebase now!!");		
-			
-			
-			
-		break;
 		case "Star Wars":
-		
-			count = 0;
-			for (int i = 0; i < word[0].length; i++) {
-				myFirebaseRef.child("word" + count + "/text").setValue(word[0][i]);
-				//myFirebaseRef.child("word" + count + "/active").setValue(false);
-				myFirebaseRef.child("word" + count + "/occupied").setValue(false);
-				//myFirebaseRef.child("word" + count + "/owner").setValue("");
-				//words.add(new Word(word[0][i],"hej"));
-				count++;
-			}
-			System.out.println(count);
 
-			FireBaseRoot.child("Regular Words Size").setValue(count);
-			System.out.println(fileName[0]+" is on firebase now!!");		
-			
-			
-			
-			//myFirebaseRef = new Firebase("https://scorching-fire-1846.firebaseio.com/Themed Words"); // Root
-	
-			
+			count = 0;
+
 			System.out.println("Star Wars theme is on firebase now!!");
 			System.out.println(word[2].length);
 			for (int i = 0; i < word[2].length; i++) {
-				myFirebaseRef.child("word" + count + "/text").setValue(word[2][i]);
-				myFirebaseRef.child("word" + count + "/active").setValue(false);
-				myFirebaseRef.child("word" + count + "/occupied").setValue(false);
-				myFirebaseRef.child("word" + count + "/owner").setValue("");
-				//words.add(new Word(word[2][i],"hej"));
+
+				myFirebaseRef.child("word" + i + "/text").setValue(word[1][i]);
+				myFirebaseRef.child("word" + i + "/active").setValue(false);
+				myFirebaseRef.child("word" + i + "/occupied").setValue(false);
+				myFirebaseRef.child("word" + i + "/owner").setValue("");
+				words.add(new Word(word[2][i],"hej"));
 				count++;
 			}
-			System.out.println(count);
 			FireBaseRoot.child("Themed Words Size").setValue(count);
-			
+
+
 			break;
 
 		case "used":
+			myFirebaseRef = new Firebase("https://scorching-fire-1846.firebaseio.com/Used Words"); // Root
 			count = 0;
-			for (int i = 0; i < word[0].length; i++) {
-				myFirebaseRef.child("word" + i + "/text").setValue(word[0][i]);
-				//myFirebaseRef.child("word" + i + "/active").setValue(false);
-				myFirebaseRef.child("word" + i + "/occupied").setValue(false);
-				//myFirebaseRef.child("word" + i + "/owner").setValue("");
-				words.add(new Word(word[0][i],"hej"));
-				count++;
-			}
-
-			FireBaseRoot.child("Regular Words Size").setValue(count);
-			System.out.println(fileName[0]+" is on firebase now!!");		
-			
-			
-			
-			
-			
-			//myFirebaseRef = new Firebase("https://scorching-fire-1846.firebaseio.com/Used Words"); // Root
-			
-			for (int i = 0; i < word[1].length; i++) {
+			for (int i = 0; i < word[1].length-50; i++) {
+				myFirebaseRef.child("word" + i + "/attributes/state").setValue("placed");
 				myFirebaseRef.child("word" + i + "/attributes/text").setValue(word[0][i]);
 				myFirebaseRef.child("word" + i + "/attributes/active").setValue(false);
 				myFirebaseRef.child("word" + i + "/attributes/occupied").setValue(false);
 				myFirebaseRef.child("word" + i + "/attributes/owner").setValue("");
-				myFirebaseRef.child("word" + i + "/attributes/xRel").setValue(0.5);
-				myFirebaseRef.child("word" + i + "/attributes/yRel").setValue(0.5);
-				//words.add(new Word(word[1][i],"hej"));
+				myFirebaseRef.child("word" + i + "/attributes/xRel").setValue((float)(new Random().nextFloat()*1));
+				myFirebaseRef.child("word" + i + "/attributes/yRel").setValue((float)(new Random().nextFloat()*1));
+				words.add(new Word(word[1][i],"hej"));
 				count++;
 			}
 
-			myFirebaseRef.child(fileName[1]+"  "+word[0].length+"Used Word Size").setValue(count);
+			//myFirebaseRef.child(fileName[1]+"  "+word[0].length+"Used Word Size").setValue(count);
 			System.out.println(fileName[1]+" is on Used firebase now!!");
 
 			break;
 			
 		case "New":
+			myFirebaseRef = new Firebase("https://scorching-fire-1846.firebaseio.com/New"); // Root
 			count = 0;
-			
-			for (int i = 0; i < word[0].length; i++) {
-				myFirebaseRef.child("word" + i + "/text").setValue(word[0][i]);
-				//myFirebaseRef.child("word" + i + "/active").setValue(false);
-				myFirebaseRef.child("word" + i + "/occupied").setValue(false);
-				//myFirebaseRef.child("word" + i + "/owner").setValue("");
-				//words.add(new Word(word[0][i],"hej"));
-				count++;
-			}
-
-			FireBaseRoot.child("Regular Words Size").setValue(count);
-			System.out.println(fileName[0]+" is on firebase now!!");		
-			
-			
-			
-			
-			
-			//myFirebaseRef = new Firebase("https://scorching-fire-1846.firebaseio.com/New"); // Root
-			
 			for (int i = 0; i < word[0].length; i++) {
 				myFirebaseRef.child("word" + i + "/attributes/text").setValue(word[0][i]);
 				myFirebaseRef.child("word" + i + "/attributes/active").setValue(false);
@@ -187,7 +134,7 @@ public class WordFiles {
 				myFirebaseRef.child("word" + i + "/attributes/owner").setValue("");
 				myFirebaseRef.child("word" + i + "/attributes/xRel").setValue(0.5);
 				myFirebaseRef.child("word" + i + "/attributes/yRel").setValue(0.5);
-				//words.add(new Word(word[0][i],"hej"));
+				words.add(new Word(word[0][i],"hej"));
 				count++;
 			}
 
@@ -196,11 +143,5 @@ public class WordFiles {
 
 			break;
 		}
-		
-		
-		
-		
-		
-		
 	}	
 }

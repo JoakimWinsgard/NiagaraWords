@@ -29,10 +29,7 @@ public class WordFiles {
 		//myFirebaseRef.removeValue(); // Cleans out everything
 		//Firebase word = myFirebaseRef.child("Joakim Words");
 
-		myFirebaseRef.child("ScreenNbr").setValue(145); // Has to be same as on the app. So place specific can't you see the screen you don't know the number
-		myFirebaseRef.child("ScreenWidth").setValue(1080); // Has to be same as on the app. So place specific can't you see the screen you don't know the number
-		myFirebaseRef.child("ScreenHeight").setValue(888); // Has to be same as on the app. So place specific can't you see the screen you don't know the number
-		for(int i=0; i<fileName.length;i++){
+			for(int i=0; i<fileName.length;i++){
 			Scanner input[]={null,null,null};
 			try {
 				input[i] = new Scanner(new File("Resources/"+fileName[i]+".txt"));
@@ -63,7 +60,10 @@ public class WordFiles {
 	}
 
 	public void firebase(String s,int index){
-		
+		FireBaseRoot.child("ScreenNbr").setValue(145); // Has to be same as on the app. So place specific can't you see the screen you don't know the number
+		FireBaseRoot.child("ScreenWidth").setValue(1080); // Has to be same as on the app. So place specific can't you see the screen you don't know the number
+		FireBaseRoot.child("ScreenHeight").setValue(888); // Has to be same as on the app. So place specific can't you see the screen you don't know the number
+
 		FireBaseRoot.child("theme").setValue(theme);     // load theme
 		FireBaseRoot.child("moves").setValue(userMoves);	// load theme
 		System.out.println(s + "  index:" + index);

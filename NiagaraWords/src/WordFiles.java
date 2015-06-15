@@ -1,10 +1,6 @@
-import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 import com.firebase.client.Firebase;
 
@@ -32,7 +28,8 @@ public class WordFiles {
 			for(int i=0; i<fileName.length;i++){
 			Scanner input[]={null,null,null};
 			try {
-				input[i] = new Scanner(new File("Resources/"+fileName[i]+".txt"));
+				
+				input[i] = new Scanner(this.getClass().getResourceAsStream("Resources/"+fileName[i]+".txt"));
 				word[i] = input[i].nextLine().toLowerCase().split(" ");
 				System.out.println("loadar in words from "+ fileName[i]+".txt");
 			} catch (Exception e) {
